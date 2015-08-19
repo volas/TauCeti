@@ -19,8 +19,8 @@ em						{font-style: normal;font-weight: bold;}
 .ooc img.text_tag		{width: 32px; height: 10px;}
 
 .ooc .everyone			{color: #002eb8;}
-.ooc .looc				{color: #3A9696;}
-.ooc .elevated			{color: #2e78d9;}
+.ooc .looc				{color: #6699cc;}
+.ooc .elevated			{color: #704f80;}
 .ooc .moderator			{color: #184880;}
 .ooc .developer			{color: #1b521f;}
 .ooc .admin				{color: #b82e00;}
@@ -34,7 +34,7 @@ em						{font-style: normal;font-weight: bold;}
 /* Admin: Channels */
 .mod_channel			{color: #735638;	font-weight: bold;}
 .mod_channel .admin		{color: #b82e00;	font-weight: bold;}
-.admin_channel			{color: #9611D4;	font-weight: bold;}
+.admin_channel			{color: #006666;	font-weight: bold;}
 
 /* Radio: Misc */
 .deadsay				{color: #530FAD;}
