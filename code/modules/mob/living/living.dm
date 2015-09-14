@@ -87,8 +87,8 @@ default behaviour is:
 
 			if((tmob.mob_always_swap || (tmob.a_intent == I_HELP || tmob.restrained()) && (a_intent == I_HELP || src.restrained())) && tmob.canmove && canmove && !dense && can_move_mob(tmob, 1, 0)) // mutual brohugs all around!
 				var/turf/oldloc = loc
-				loc = tmob.loc
-				tmob.loc = oldloc
+				forceMove(tmob.loc)
+				tmob.forceMove(oldloc)
 				now_pushing = 0
 				for(var/mob/living/carbon/slime/slime in view(1,tmob))
 					if(slime.Victim == tmob)
@@ -574,20 +574,11 @@ default behaviour is:
 	set name = "Resist"
 	set category = "IC"
 
-	if(can_resist())
+	if(!(stat || next_move > world.time))
 		next_move = world.time + 20
 		resist_grab()
-		if(!weakened && !restrained())
+		if(!weakened)
 			process_resist()
-
-/mob/living/proc/can_resist()
-	//need to allow !canmove, or otherwise neck grabs can't be resisted
-	//similar thing with weakened and pinning
-	if(stat)
-		return 0
-	if(next_move > world.time)
-		return 0
-	return 1
 
 /mob/living/proc/process_resist()
 	//Getting out of someone's inventory.
@@ -615,7 +606,7 @@ default behaviour is:
 		src << "<span class='warning'>You wriggle out of [M]'s grip!</span>"
 	else if(istype(H.loc,/obj/item))
 		src << "<span class='warning'>You struggle free of [H.loc].</span>"
-		H.loc = get_turf(H)
+		H.forceMove(get_turf(H))
 
 	if(istype(M))
 		for(var/atom/A in M.contents)
