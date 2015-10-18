@@ -370,6 +370,12 @@
 		if(status_flags & GODMODE)
 			return
 
+		//exposure to extreme pressures can rupture lungs
+		if(breath && (breath.total_moles < BREATH_MOLES / 5 || breath.total_moles > BREATH_MOLES * 5))
+			if(!is_lung_ruptured() && prob(5))
+				rupture_lung()
+
+		//check if we actually need to process breath
 		if(!breath || (breath.total_moles == 0) || suiciding)
 			failed_last_breath = 1
 			if(suiciding)
@@ -884,9 +890,9 @@
 				var/turf/T = loc
 				var/atom/movable/lighting_overlay/L = locate(/atom/movable/lighting_overlay) in T
 				if(L)
-					light_amount = min(10,L.lum_r + L.lum_g + L.lum_b) - 5 //hardcapped so it's not abused by having a ton of flashlights
+					light_amount = min(10,L.lum_r + L.lum_g + L.lum_b) - 2 //hardcapped so it's not abused by having a ton of flashlights
 				else
-					light_amount =  5
+					light_amount =  1
 			nutrition += light_amount
 			traumatic_shock -= light_amount
 
